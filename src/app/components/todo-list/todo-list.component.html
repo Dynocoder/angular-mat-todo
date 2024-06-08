@@ -1,9 +1,29 @@
 <div class="todo-section">
+  <h1>Todo List</h1>
   <div class="todo-bar">
-
+    <button mat-flat-button color="primary" (click)="add()">
+      <mat-icon>add</mat-icon>
+      New Todo
+    </button>
   </div>
   <mat-divider></mat-divider>
   <div class="todo-list">
+    <h2>Pending</h2>
+    <ul>
+      <li class="todo-list-item" *ngFor="let todo of todoList, index as i">
+        <mat-checkbox class="example-margin" (change)="complete(i)"></mat-checkbox>
+        <p style="min-width:80%">{{todo.todo}}</p>
+        <mat-icon (click)="remove(false, i)">delete</mat-icon>
+      </li>
+    </ul>
+    <h2>Completed</h2>
+    <ul>
+      <li class="todo-list-item" *ngFor="let completed of completedList, index as i">
+        <mat-checkbox class="example-margin" [checked]="completed.isChecked" (change)="add(i)"></mat-checkbox>
+        <p style="min-width:80%">{{completed.todo}}</p>
+        <mat-icon (click)="remove(true, i)">delete</mat-icon>
+      </li>
+    </ul>
 
   </div>
 </div>

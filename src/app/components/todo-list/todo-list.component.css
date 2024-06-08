@@ -1,0 +1,17 @@
+.todo-section {
+  max-width: 50vw;
+  min-height: 100vh;
+  margin: auto;
+}
+
+.todo-bar {
+  /* padding: 20px; */
+  margin: 30px;
+}
+
+.todo-list-item {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  min-width: 100%;
+}
