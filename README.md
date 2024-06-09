@@ -23,11 +23,12 @@ Before you begin, ensure you have the following software versions installed:
 - Angular CLI: 17.8.3
 
 You can check if these are installed by running the following commands in your terminal or command prompt:
-`
+
+```
 node -v
 npm -v
 ng --version
-`
+```
 
 ## Windows Installation
 
@@ -36,25 +37,25 @@ ng --version
 Download the Node.js installer from the (official website)[https://nodejs.org/en/download/prebuilt-installer/current].
 Run the installer and follow the on-screen instructions.
 Open a new command prompt window and verify the installation by running:
-`
+```
 node -v
 npm -v
-`
+```
 
 ### Angular CLI
 
 Open a command prompt window.
 Install Angular CLI globally using npm:
 
-`
+```
 npm install -g @angular/cli@17.8.3
-`
+```
 
 Verify the installation by running:
 
-`
+```
 ng --version
-`
+```
 
 
 ## Linux Installation
@@ -65,59 +66,59 @@ Open a terminal window.
 Update your package index and install Node.js and npm:
 
 
-`
+```
 sudo apt update
 sudo apt install nodejs npm
-`
+```
 
 
 Verify the installation by running:
 
-`
+```
 node -v
 npm -v
-`
+```
 
 ### Angular CLI
 
 Open a terminal window.
 Install Angular CLI globally using npm:
 
-`
+```
 npm install -g @angular/cli@17.8.3
-`
+```
 
 Verify the installation by running:
 
-`
+```
 ng --version
-`
+```
 
 ## Clone and Run the Project
 
 Clone the Project Name repository to your local machine:
 
-`
+```
 git clone https://github.com/Dynocoder/angular-mat-todo.git 
-`
+```
 
 Navigate to the project directory:
 
-`
+```
 cd project-name
-`
+```
 
 Install project dependencies:
 
-`
+```
 npm install
-`
+```
 
 Run the Angular development server:
 
-`
+```
 ng serve
-`
+```
 
 Open your web browser and navigate to `http://localhost:4200` to view the running application.
 
