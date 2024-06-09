@@ -1,0 +1,24 @@
+name: Code Integration
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node
+        with:
+          node-version: 22.2.0
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+
+
