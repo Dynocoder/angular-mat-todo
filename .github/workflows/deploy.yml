@@ -27,3 +27,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist/browser
+          token: ${{ secrets.GH_TOKEN }}
