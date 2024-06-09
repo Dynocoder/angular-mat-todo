@@ -6,6 +6,9 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AddEditTodoDialogComponent } from '../add-edit-todo-dialog/add-edit-todo-dialog.component';
 
 
 interface Todo {
@@ -33,7 +36,10 @@ export class TodoListComponent {
   todoList!: Array<Todo>;
   completedList!: Array<Todo>;
 
-  constructor() {
+  constructor(
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {
     this.todoList = [
       { isChecked: false, todo: "Todotask 1" },
       { isChecked: false, todo: "Todotask 2" },
@@ -61,10 +67,23 @@ export class TodoListComponent {
       console.log(this.completedList);
     }
     else {
-      this.todoList.push({ isChecked: false, todo: "newTodo" + (this.todoList.length + 1) });
-      console.log("nopes");
+      let dialogRef = this.dialog.open(AddEditTodoDialogComponent);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+
+          if (result.length > 0) {
+            console.log(result.length);
+            this.todoList.push({ isChecked: false, todo: result });
+          } else {
+            this.snackBar.open("Cannot Create Todo  :-(", "Close", {
+              duration: 1750
+            })
+          }
+        }
+      });
     }
   }
+
 
   /** Method to set a todo status to complete.
    * @param todoIndex - the index of the todo to set as complete.
@@ -83,12 +102,9 @@ export class TodoListComponent {
   remove(isCompleted: boolean, index: number) {
     if (isCompleted) {
       this.completedList.splice(index, 1);
-      console.log(this.completedList);
     }
     else {
       this.todoList.splice(index, 1);
-      console.log(this.todoList);
     }
   }
-
 }
