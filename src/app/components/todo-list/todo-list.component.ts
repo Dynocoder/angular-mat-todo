@@ -9,11 +9,17 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddEditTodoDialogComponent } from '../add-edit-todo-dialog/add-edit-todo-dialog.component';
+import { UserStorageService } from '../../services/user-storage.service';
 
 
-interface Todo {
+export interface Todo {
   isChecked: boolean;
   todo: string;
+}
+
+enum todoList {
+  Todo = "todoList",
+  Completed = "completedList"
 }
 
 @Component({
@@ -38,20 +44,11 @@ export class TodoListComponent {
 
   constructor(
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private userStorage: UserStorageService
   ) {
-    this.todoList = [
-      { isChecked: false, todo: "Todotask 1" },
-      { isChecked: false, todo: "Todotask 2" },
-      { isChecked: false, todo: "Todotask 3" },
-      { isChecked: false, todo: "Todotask 4" },
-    ];
-    this.completedList = [
-      { isChecked: true, todo: "Todotask 5" },
-      { isChecked: true, todo: "Todotask 6" },
-      { isChecked: true, todo: "Todotask 7" },
-      { isChecked: true, todo: "Todotask 8" },
-    ];
+    this.todoList = this.userStorage.getTodoList(todoList.Todo) ?? [];
+    this.completedList = this.userStorage.getTodoList(todoList.Completed) ?? [];
   }
 
 
@@ -61,10 +58,9 @@ export class TodoListComponent {
   add(todoIndex?: number): void {
     if (todoIndex != null) {
       this.completedList[todoIndex].isChecked = false;
-      console.log(this.completedList[todoIndex]);
       this.todoList.push(this.completedList[todoIndex]);
       this.completedList.splice(todoIndex, 1);
-      console.log(this.completedList);
+      this.updateStorage();
     }
     else {
       let dialogRef = this.dialog.open(AddEditTodoDialogComponent);
@@ -72,8 +68,8 @@ export class TodoListComponent {
         if (result !== undefined) {
 
           if (result.length > 0) {
-            console.log(result.length);
             this.todoList.push({ isChecked: false, todo: result });
+            this.updateStorage();
           } else {
             this.snackBar.open("Cannot Create Todo  :-(", "Close", {
               duration: 1750
@@ -92,6 +88,7 @@ export class TodoListComponent {
     this.todoList[todoIndex].isChecked = true;
     this.completedList.push(this.todoList[todoIndex]);
     this.todoList.splice(todoIndex, 1);
+    this.updateStorage();
   }
 
 
@@ -106,5 +103,13 @@ export class TodoListComponent {
     else {
       this.todoList.splice(index, 1);
     }
+    this.updateStorage();
+  }
+
+
+  /** Update the localStorage to contain the latest todoLists */
+  updateStorage(): void {
+    this.userStorage.setTodoList(todoList.Todo, this.todoList);
+    this.userStorage.setTodoList(todoList.Completed, this.completedList);
   }
 }
