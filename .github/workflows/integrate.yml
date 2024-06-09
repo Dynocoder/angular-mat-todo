@@ -21,8 +21,7 @@ jobs:
         with:
           node-version: 22.2.0
 
-      - name: Build Angular app to prod
-        working-directory: angular-mat-todo
+      - name: Build Angular app
         run: npm ci && npm build
 
 
