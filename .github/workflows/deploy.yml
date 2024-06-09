@@ -20,6 +20,10 @@ jobs:
       - name: Clean Install
         run: npm ci
 
-      - name: Deploy
+      - name: Production Build
         run: npm run build:prod
 
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: angular-mat-todo/dist/browser
